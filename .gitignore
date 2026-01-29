@@ -1,0 +1,7 @@
+.zed
+.vscode
+
+dist
+target
+
+.DS_Store

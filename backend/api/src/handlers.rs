@@ -4,7 +4,7 @@ use jwt::SignWithKey;
 use sha2::Sha256;
 use std::collections::BTreeMap;
 
-pub async fn post_loing(data: LoginRequest) -> Result<impl warp::Reply, warp::Rejection> {
+pub async fn post_login(data: LoginRequest) -> Result<impl warp::Reply, warp::Rejection> {
     if !(data.name_or_email.eq("test") && data.password.eq("asb123")) {
         return Ok(warp::reply::json(&LoginResonse {
             token: "".to_string(),

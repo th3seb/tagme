@@ -9,7 +9,7 @@ pub fn routes() -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejecti
     let login_post = warp::path!("login")
         .and(warp::post())
         .and(json_body())
-        .and_then(handlers::post_loing);
+        .and_then(handlers::post_login);
 
     let get_profile = warp::path!("profile" / String)
         .and(warp::get())

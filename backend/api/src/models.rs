@@ -17,3 +17,14 @@ pub struct ProfileResponse {
     pub name: String,
     pub tags: String,
 }
+
+
+#[derive(Serialize)]
+pub struct ErrorMessage {
+    pub message: String,
+}
+
+#[derive(Debug)]
+pub struct Unauthorized;
+impl warp::reject::Reject for Unauthorized {}
+

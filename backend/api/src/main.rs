@@ -1,6 +1,8 @@
 mod handlers;
 mod models;
 mod routes;
+mod handle_auth;
+
 
 struct RGBColor {
     r: u8,
@@ -13,8 +15,10 @@ struct Tag<T> {
     value: T,
 }
 
+
 #[tokio::main]
 async fn main() {
+
     let colorTag = Tag::<RGBColor> {
         key: "color".to_string(),
         value: RGBColor { r: 255, g: 0, b: 0 },

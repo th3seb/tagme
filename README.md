@@ -24,19 +24,19 @@ Extendable list of categories -> hobby example:
 ```json
 [
     {
-        name: "Music",
-        parent: null,
-        icon: "🎶",
+        "name": "Music",
+        "parent": null,
+        "icon": "🎶",
     },
     {
-        name: "Sport",
-        parent: null,
-        icon: "💪",
+        "name": "Sport",
+        "parent": null,
+        "icon": "💪",
     },
     {
-        name: "Guitar",
-        parent: Music,
-        icon: "🎸",
+        "name": "Guitar",
+        "parent": "Music",
+        "icon": "🎸",
     },
 ]
 ```

@@ -4,20 +4,21 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
         <link rel="stylesheet" href="styles/index.css" />
+        <script type="module" src="./dist/app.js"></script>
+
         <title>TagMe</title>
     </head>
     <body>
-        <header>
-            <nav>
-                <div>Me</div>
-                <div>Discover</div>
-                <div>Chats</div>
-            </nav>
-        </header>
-        <tag-color></tag-color>
-        <main>
-            <span>Hello World</span>
-        </main>
+        <!-- <app-router>
+            <app-route data-path="/"><app-main></app-main></app-route>
+            <app-route data-path="/login"><app-login></app-login></app-route>
+            <app-route data-path="/register"><app-register></app-register></app-route>
+        </app-router> -->
+
+        <app-main></app-main>
+
+        <div id="templates" style="display: none"></div>
     </body>
 </html>

@@ -1,8 +1,9 @@
 {
-  "compilerOptions": {
-    "outDir": "dist",
-    "module": "ESNext",
-    "target": "ESNext",
-  },
-  "include": ["src/main.ts"],
+    "compilerOptions": {
+        "outDir": "./dist",
+        "rootDir": "./src",
+        "module": "ESNext",
+        "target": "ESNext"
+    },
+    "include": ["src/app.ts"]
 }

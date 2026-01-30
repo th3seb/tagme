@@ -19,12 +19,6 @@ main {
     background-color: var(--bg);
 }
 
-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-}
-
 /* When the browser is at least 600px and above */
 @media screen and (min-width: 600px) {
 
@@ -33,22 +27,5 @@ nav {
         display: block;
         padding-top: 3rem;
         height: auto;
-    }
-
-    header {
-        position: fixed;
-        top: 1rem;
-        left: 0;
-        right: 0;
-        height: 2rem;
-
-    }
-
-    nav {
-        width: 40%;
-        margin: auto;
-
-        border-radius: 2rem;
-        background-color: var(--neutral);
     }
 }

@@ -1,0 +1,27 @@
+@import "vars.css";
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    height: var(--navbar-size);
+}
+
+@media screen and (min-width: 600px) {
+
+    header {
+        position: fixed;
+        top: 1rem;
+        left: 0;
+        right: 0;
+    }
+
+    nav {
+        width: 550px;
+        margin: auto;
+
+        border-radius: var(--border-radius);
+        background-color: var(--neutral);
+    }
+}

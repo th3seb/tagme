@@ -1,29 +1,22 @@
 @import "vars.css";
 
-html {
-    background-color: var(--accent);
-}
-
 body {
     margin: 0;
     height: 100vh;
-    background-color: var(--accent);
     display: flex;
     flex-direction: column-reverse;
 }
 
-main {
-    flex: 1;
-
-    color: var(--fg);
-    background-color: var(--bg);
+app-main {
+    width: 100%;
+    min-height: 100%;
 }
 
 /* When the browser is at least 600px and above */
 @media screen and (min-width: 600px) {
 
     /* Desktop styles here */
-    body {
+    app-nav {
         display: block;
         padding-top: 3rem;
         height: auto;

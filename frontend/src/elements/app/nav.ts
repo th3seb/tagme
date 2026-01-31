@@ -12,7 +12,7 @@ export class AppNav extends BaseElement<RefTypes> {
         this.findRefs("chats", "discover", "me");
 
         this.refs.me.addEventListener("click", () => {
-            console.log("OKOK");
+            this.router?.navigate("/login");
         });
     }
 }

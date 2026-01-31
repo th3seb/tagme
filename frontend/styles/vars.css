@@ -1,7 +1,8 @@
 :root {
     --fg: #000;
     --bg: #fff;
-    --accent: #45a5cc;
+    --accent: #3b8cac;
+    --fg-accent: #498197;
     --primary: var(--accent);
     --neutral: #6c757d;
     --success: #28a745;

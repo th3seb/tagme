@@ -1,0 +1,14 @@
+@import "vars.css";
+
+body {
+    background-color: var(--accent);
+}
+
+app-main {
+    color: var(--fg);
+    background-color: var(--bg);
+}
+
+app-link {
+    color: var(--fg-accent);
+}

@@ -1,23 +1,52 @@
 import { Template } from "../service/template.js";
 import { Router } from "../router.js";
 
-interface InjectedParams {
+export interface InjectedDeps {
     router?: Router;
 }
 
+export type BaseElementConstructor<Refs = any> = { new (params?: InjectedDeps): BaseElement<Refs> };
+
 export abstract class BaseElement<Refs = any> extends HTMLElement {
+    private deps: InjectedDeps;
+
     protected refs: Refs = {} as any;
     protected router?: Router;
 
-    constructor(params?: InjectedParams) {
+    private initialized: Promise<void>;
+
+    constructor(deps?: InjectedDeps) {
         super();
 
-        this.router = params?.router;
+        this.deps = deps;
+        this.injectDeps(this.deps);
 
-        this.init();
+        this.initialized = this.init().then(() => {
+            this.injectDeps(this.deps);
+        });
+    }
+
+    public injectDeps(deps?: InjectedDeps) {
+        this.deps = deps;
+        this.router = deps?.router;
     }
 
     protected async init() {}
+    public async sync() {
+        return this.initialized;
+    }
+
+    protected traverse(action: (e: BaseElement) => void) {
+        for (const child of this.children) {
+            const tag = child.tagName;
+            if (!tag.includes("-")) continue;
+            if (!window.customElements.get(tag.toLowerCase())) continue;
+
+            const found = child as BaseElement;
+            action(found);
+            found.traverse(action);
+        }
+    }
 
     protected async useTemplate(key: string, clone: boolean = false) {
         const temp = await Template.fromFile(key);
@@ -25,6 +54,7 @@ export abstract class BaseElement<Refs = any> extends HTMLElement {
 
         const content = clone ? temp.content.cloneNode(true) : temp.content;
         this.append(content);
+        this.traverse((e) => e.injectDeps(this.deps));
     }
 
     protected findRefs(...refs: (keyof Refs)[]) {
@@ -35,3 +65,20 @@ export abstract class BaseElement<Refs = any> extends HTMLElement {
         }
     }
 }
+
+/* 
+// BASE EXAMPLE
+
+import { BaseElement } from "../base.js";
+
+
+interface Refs {}
+
+export class Test extends BaseElement<Refs> {
+    async init(): Promise<void> {
+        this.useTemplate("test-test");
+        this.findRefs( ... );
+    }
+}
+
+*/

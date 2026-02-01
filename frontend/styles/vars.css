@@ -5,13 +5,20 @@
     --fg-accent: #498197;
     --primary: var(--accent);
     --neutral: #6c757d;
+
     --success: #28a745;
-    --info: #17a2b8;
+    --success-border: #1c7f33;
+    --info: #58acdc;
+    --info-border: #246279;
     --warning: #ffc107;
-    --danger: #dc3545;
+    --warning-border: #cb6c00;
+    --error: #dc3545;
+    --error-border: #731c24;
+
     --light: #f8f9fa;
     --dark: #343a40;
 
-    --border-radius: 2rem;
+    --font-family: sans-serif;
+    --border-radius: 0.5rem;
     --navbar-size: 2rem;
 }

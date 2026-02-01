@@ -1,4 +1,31 @@
-<div data-type="error">
-    <span data-ref="title">An error occurred</span>
-    <span data-ref="message"></span>
+<style>
+    div.banner {
+        padding: 0.5rem;
+        border-width: 2px;
+        border-style: groove;
+
+        border-radius: var(--border-radius);
+        background-color: var(--info);
+        border-color: var(--info-border);
+    }
+
+    div.banner[data-type="success"] {
+        background-color: var(--success);
+        border-color: var(--success-border);
+    }
+
+    div.banner[data-type="error"] {
+        background-color: var(--error);
+        border-color: var(--error-border);
+    }
+
+    div.banner[data-type="warning"] {
+        background-color: var(--warning);
+        border-color: var(--warning-border);
+    }
+</style>
+
+<div class="banner">
+    <slot name="title">An error occurred</slot>
+    <slot name="message"></slot>
 </div>

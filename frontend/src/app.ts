@@ -5,8 +5,10 @@ import { AppBanner } from "./elements/app/banner.js";
 
 import { PageLogin } from "./elements/page/login.js";
 import { PageLanding } from "./elements/page/landing.js";
+import { PageDiscover } from "./elements/page/discover.js";
+import { PageChat } from "./elements/page/chat.js";
 
-import { BaseElement, BaseElementConstructor, InjectedDeps } from "./elements/base.js";
+import { BaseElement, BaseElementConstructor, DependencyStorage, InjectedDeps } from "./elements/base.js";
 import { Handler, Router } from "./router.js";
 
 import { AuthService } from "./service/auth.js";
@@ -18,6 +20,8 @@ const defines = {
     "app-link": AppLink,
     "app-banner": AppBanner,
 
+    "page-chat": PageChat,
+    "page-discover": PageDiscover,
     "page-landing": PageLanding,
     "page-login": PageLogin,
 };
@@ -38,12 +42,23 @@ app.sync().then(() => {
 function startRouter() {
     // Setup frontend routing
     const router = new Router({ inject: app.querySelector("#router-entry"), root: "/", useHash: true });
+    DependencyStorage["router"] = router;
 
-    router.on("/", authHandler(), renderHandler(PageLanding));
+    router.on("/", rootHandler());
+    router.on("/discover", authHandler(), renderHandler(PageDiscover));
+    router.on("/chat", authHandler(), renderHandler(PageChat));
+
+    router.on("/landing", renderHandler(PageLanding));
     router.on("/login", renderHandler(PageLogin));
 
-    app.injectDeps({ router });
     router.navigate(router.currentPath(), "replace");
+
+    function rootHandler(): Handler {
+        return async (flow) => {
+            if (AuthService.valid()) flow.render(new PageDiscover());
+            else flow.redirect("/landing");
+        };
+    }
 
     function authHandler(): Handler<[boolean, BaseElement], 0> {
         return async (flow) => {
@@ -55,7 +70,8 @@ function startRouter() {
     function renderHandler(page: BaseElementConstructor): Handler<[boolean, BaseElement], 1> {
         return async (flow) => {
             await flow.sync();
-            const element = new page({ router });
+            app.update();
+            const element = new page();
             flow.render(element);
             return element;
         };

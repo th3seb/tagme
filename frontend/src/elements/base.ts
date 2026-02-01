@@ -5,7 +5,9 @@ export interface InjectedDeps {
     router?: Router;
 }
 
-export type BaseElementConstructor<Refs = any> = { new (params?: InjectedDeps): BaseElement<Refs> };
+export const DependencyStorage: InjectedDeps = {};
+
+export type BaseElementConstructor<Refs = any> = { new (): BaseElement<Refs> };
 
 export abstract class BaseElement<Refs = any> extends HTMLElement {
     private deps: InjectedDeps;
@@ -15,20 +17,13 @@ export abstract class BaseElement<Refs = any> extends HTMLElement {
 
     private initialized: Promise<void>;
 
-    constructor(deps?: InjectedDeps) {
+    constructor() {
         super();
 
-        this.deps = deps;
-        this.injectDeps(this.deps);
+        this.deps = DependencyStorage;
+        this.router = this.deps.router;
 
-        this.initialized = this.init().then(() => {
-            this.injectDeps(this.deps);
-        });
-    }
-
-    public injectDeps(deps?: InjectedDeps) {
-        this.deps = deps;
-        this.router = deps?.router;
+        this.initialized = this.init();
     }
 
     protected async init() {}
@@ -48,13 +43,16 @@ export abstract class BaseElement<Refs = any> extends HTMLElement {
         }
     }
 
-    protected async useTemplate(key: string, clone: boolean = false) {
+    protected async useTemplate(key: string, clone: boolean = false, shadowDom: boolean = false) {
         const temp = await Template.fromFile(key);
         if (!temp) throw new Error("Can't load template");
 
         const content = clone ? temp.content.cloneNode(true) : temp.content;
-        this.append(content);
-        this.traverse((e) => e.injectDeps(this.deps));
+        if (!shadowDom) this.append(content);
+        else {
+            this.attachShadow({ mode: "open" });
+            this.shadowRoot.append(content);
+        }
     }
 
     protected findRefs(...refs: (keyof Refs)[]) {

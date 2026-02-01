@@ -1,0 +1,29 @@
+@import "vars.css";
+
+html {
+    font-family: var(--font-family);
+}
+
+body {
+    background-color: var(--accent);
+}
+
+app-main {
+    color: var(--fg);
+    background-color: var(--bg);
+}
+
+app-link {
+    cursor: pointer;
+    color: var(--fg-accent);
+}
+
+app-link[data-style="button"] {
+    padding: 0.5rem;
+    color: var(--fg);
+    background-color: var(--neutral);
+}
+
+app-nav {
+    background-color: var(--neutral);
+}

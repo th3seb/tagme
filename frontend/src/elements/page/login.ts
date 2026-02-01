@@ -30,7 +30,7 @@ export class PageLogin extends BaseElement<Refs> {
         } catch (e: any) {
             const error = e as AuthError;
             // show error
-            const banner = new AppBanner({ router: this.router });
+            const banner = new AppBanner();
             await banner.sync();
             banner.title = "Auth Error";
             banner.message = error.label;

@@ -20,8 +20,5 @@ nav {
     nav {
         width: 550px;
         margin: auto;
-
-        border-radius: var(--border-radius);
-        background-color: var(--neutral);
     }
 }

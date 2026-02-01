@@ -77,6 +77,9 @@ export class Router {
     public navigate(to: string, history: "push" | "silent" | "replace" = "push"): Promise<RoutingInfo> {
         if (!to) to = this.root;
 
+        // if exact match and history push -> doesn't make sense to reload
+        if (to == this.currentPath() && history == "push") return Promise.resolve({ previous: to, current: to, requested: to });
+
         console.debug("Routing to " + to);
         const [route, params] = to.split("?");
         // ignore params for now - soft reload in future?
